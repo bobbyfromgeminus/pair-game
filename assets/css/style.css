@@ -11,6 +11,9 @@ body {
     height: 100vh;
     background-color: rgba(166, 170, 174, 1);
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card-container {
@@ -25,10 +28,10 @@ body {
     display: block;
     width: 15%;
     height: 45%;
-    border: 1px solid #454545;
+    border: 1px solid #ffffff;
     margin: 1.25% 2.5%;
     border-radius: .5rem;
-    background-color: rgba(230, 230, 230, 1);
+    background-color: rgba(255, 255, 255, 1);
     padding: 1%;
     font-size: 3rem;
     text-align: center;
@@ -92,7 +95,7 @@ body {
     font-size: 2rem;
     text-align: right;
     font-weight: 800;
-    color: rgba(66, 70, 74, 1);
+    color: rgb(17, 17, 17);
     border-radius: 2rem;
 }
 
@@ -108,7 +111,7 @@ body {
     font-size: 2rem;
     text-align: left;
     font-weight: 800;
-    color: rgba(66, 70, 74, 1);
+    color: rgb(17, 17, 17);
     border-radius: 2rem;
 }
 
