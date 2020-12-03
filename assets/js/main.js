@@ -41,6 +41,9 @@ const flagCards = (array) => {
 }
 
 const gameOver = () => {
+    const resultBox = document.querySelector('.game-over');
+    resultBox.innerHTML = `<h1>Gratulálok!</h1>${counter} fordításból, ${time} másodperc alatt megtaláltad a párokat!<br>De már jön is a következő...`;
+    resultBox.classList.add('show');
     setTimeout(function () {
         flagCards(shuffleArray(arr1));
         cards.forEach((element, index) => element.classList.remove('card-open'));
@@ -55,9 +58,17 @@ const gameOver = () => {
         isPaired = 0;
         cardEventListeners();
         isStarted = 0;
-        time = 0; 
+        time = 0;
+        openOne = 0;
+        openTwo = 0;
+        tempId = -1;
+        tempId2 = -1;
         clickDisplay.textContent = counter;
         timeDisplay.textContent = time;
+        resultBox.classList.remove('show');
+        setTimeout(function() {
+            cards.forEach((element, index) => element.classList.remove('card-open'));
+        }, 1000);
     }, 5000);
 }
 
