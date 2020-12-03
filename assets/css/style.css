@@ -10,6 +10,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(166, 170, 174, 1);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .card-container {
@@ -86,9 +87,10 @@ body {
     padding: .5rem 2rem;
     border-radius: .4rem;
     background-color: rgba(186, 190, 194, 1);
+    font-size: 2rem;
 }
 
-.test {
+.time {
     position: absolute;
     top: 0;
     right: 0;
@@ -96,8 +98,8 @@ body {
     padding: .5rem 2rem;
     border-radius: .4rem;
     background-color: rgba(186, 190, 194, 1);
+    font-size: 2rem;
 }
-
 
 .box-shaker {
     animation: shake ease .3s;

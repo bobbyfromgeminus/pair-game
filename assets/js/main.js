@@ -3,6 +3,7 @@
 const cardContainer = document.querySelector('.card-container');            // kártyatartó
 const cards = document.querySelectorAll('.card');                           // kártyák
 const clickDisplay = document.querySelector('.click-display');              // kattintás kijelző
+const timeDisplay = document.querySelector('.time');                        // játékidő kijelző
 let openCards = 0;                                                          // felfordított kártyák száma - max 2 lehet
 let openOne = 0;                                                            // első felfordított kártya értéke
 let openTwo = 0;                                                            // második felfordított kártya értéke
@@ -11,6 +12,8 @@ let tempId2 = -1;                                                           // i
 let tempCard;                                                               // ideiglenes tároló az elsőként felfordított kártyához
 let counter = 0;                                                            // kattintás számláló
 let isPaired = 0;                                                           // megtalált párosok száma
+let isStarted = 0;                                                          // elindult-e a játék
+let time = 0;                                                               // játékidő
 
 const test = document.querySelector('.test');
 
@@ -37,48 +40,75 @@ const flagCards = (array) => {
     }
 }
 
-const gameOver = () => {
-    flagCards(shuffleArray(arr1));
-    cards.forEach((element, index) => element.classList.remove('card-open'));
-    cards.forEach((element, index) => element.classList.add('card-bg_close'));
-    cards.forEach((element, index) => element.classList.remove('card-bg_1'));
-    cards.forEach((element, index) => element.classList.remove('card-bg_2'));
-    cards.forEach((element, index) => element.classList.remove('card-bg_3'));
-    cards.forEach((element, index) => element.classList.remove('card-bg_4'));
-    cards.forEach((element, index) => element.classList.remove('card-bg_5'));
-    counter = 0;
-    isPaired = 0;
-    cardEventListeners();
+const intervalTime = () => {
+    timeDisplay.textContent = time;
+    time += 1;
+    if (isPaired === 5) clearInterval(startInterval);
 }
 
+const gameOver = () => {
+    setTimeout(function () {
+        flagCards(shuffleArray(arr1));
+        cards.forEach((element, index) => element.classList.remove('card-open'));
+        cards.forEach((element, index) => element.classList.add('card-open'));
+        cards.forEach((element, index) => element.classList.add('card-bg_close'));
+        cards.forEach((element, index) => element.classList.remove('card-bg_1'));
+        cards.forEach((element, index) => element.classList.remove('card-bg_2'));
+        cards.forEach((element, index) => element.classList.remove('card-bg_3'));
+        cards.forEach((element, index) => element.classList.remove('card-bg_4'));
+        cards.forEach((element, index) => element.classList.remove('card-bg_5'));
+        counter = 0;
+        isPaired = 0;
+        cardEventListeners();
+        isStarted = 0;
+        time = 0; 
+        clickDisplay.textContent = counter;
+        timeDisplay.textContent = time;
+    }, 5000);
+}
+
+function startTime() {
+    if (isStarted === 0) {
+        isStarted = 1;
+        startInterval;
+    }
+}
+
+const startInterval = setInterval(intervalTime, 1000);
+
 function openCard(card, i) {
+    startTime();
     cards.forEach((element, index) => element.classList.remove('card-open'));
     card.classList.add('card-open');
-    card.classList.add('card-bg_'+i);
-    card.classList.remove('card-bg_close');
+    setTimeout(function () {
+        card.classList.add('card-bg_'+i);
+        card.classList.remove('card-bg_close');
+    }, 500);
+    setTimeout(function () {
+        card.classList.remove('card-open');
+    }, 1000);
 }
 
 function closeCard() {
     cards.forEach((element, index) => element.classList.remove('card-open'));
-    //cards[tempId].classList.add('card-open');
-    //cards[tempId2].classList.add('card-open');
-    cards[tempId].classList.remove('card-bg_'+openOne);
-    cards[tempId].classList.add('card-bg_close');
-    cards[tempId2].classList.remove('card-bg_'+openTwo);
-    cards[tempId2].classList.add('card-bg_close');
-    console.log(tempId);
-    console.log(tempId2);
+    cards[tempId].classList.add('card-open');
+    cards[tempId2].classList.add('card-open');
+    setTimeout(function () {
+        cards[tempId].classList.remove('card-bg_'+openOne);
+        cards[tempId].classList.add('card-bg_close');
+        cards[tempId2].classList.remove('card-bg_'+openTwo);
+        cards[tempId2].classList.add('card-bg_close');
+    }, 500);
 }
 
 function checkCard() {
     counter += 1;
     const i = parseInt(this.id);
-    console.log(this.dataset.card);
-    openCard(this, this.dataset.card);
     if (i === tempId) {
         openCards = 0;
         cardContainer.classList.add('box-shaker');
     } else {
+        openCard(this, this.dataset.card);
         if (openCards === 0) {
             openCards += 1;
             openOne = cards[i].dataset.card;
