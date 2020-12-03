@@ -40,12 +40,6 @@ const flagCards = (array) => {
     }
 }
 
-const intervalTime = () => {
-    timeDisplay.textContent = time;
-    time += 1;
-    if (isPaired === 5) clearInterval(startInterval);
-}
-
 const gameOver = () => {
     setTimeout(function () {
         flagCards(shuffleArray(arr1));
@@ -70,11 +64,17 @@ const gameOver = () => {
 function startTime() {
     if (isStarted === 0) {
         isStarted = 1;
-        startInterval;
+        const startInterval = setInterval(function() {
+            timeDisplay.textContent = time;
+            time += 1;
+            if (isPaired === 5) clearInterval(startInterval);
+        }, 1000);
     }
 }
 
-const startInterval = setInterval(intervalTime, 1000);
+function startInterval() {
+    setInterval(intervalTime, 1000);
+}
 
 function openCard(card, i) {
     startTime();
