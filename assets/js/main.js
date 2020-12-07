@@ -72,11 +72,20 @@ const gameOver = () => {
     }, 5000);
 }
 
+function convertTime(time) {
+    let mins = Math.floor(time/60);
+    let secs = time % 60;
+    if (mins < 10) mins = `0${mins}`;
+    if (secs < 10) secs = `0${secs}`;
+    return(`${mins}:${secs}`);
+}
+
+
 function startTime() {
     if (isStarted === 0) {
         isStarted = 1;
         const startInterval = setInterval(function() {
-            timeDisplay.textContent = time;
+            timeDisplay.textContent = convertTime(time);
             time += 1;
             if (isPaired === 5) clearInterval(startInterval);
         }, 1000);
