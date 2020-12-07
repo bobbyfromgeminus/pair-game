@@ -3,7 +3,7 @@
 const cardContainer = document.querySelector('.card-container');            // kártyatartó
 const cards = document.querySelectorAll('.card');                           // kártyák
 const clickDisplay = document.querySelector('.click-display');              // kattintás kijelző
-const timeDisplay = document.querySelector('.time');                        // játékidő kijelző
+const timeDisplay = document.querySelector('.time-display');                // játékidő kijelző
 let openCards = 0;                                                          // felfordított kártyák száma - max 2 lehet
 let openOne = 0;                                                            // első felfordított kártya értéke
 let openTwo = 0;                                                            // második felfordított kártya értéke
@@ -14,8 +14,6 @@ let counter = 0;                                                            // k
 let isPaired = 0;                                                           // megtalált párosok száma
 let isStarted = 0;                                                          // elindult-e a játék
 let time = 0;                                                               // játékidő
-
-const test = document.querySelector('.test');
 
 // Rendezett kártya tömb
 const arr1 = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
@@ -92,10 +90,6 @@ function startTime() {
     }
 }
 
-function startInterval() {
-    setInterval(intervalTime, 1000);
-}
-
 function openCard(card, i) {
     startTime();
     cards.forEach((element, index) => element.classList.remove('card-open'));
@@ -123,7 +117,7 @@ function closeCard() {
 
 function checkCard() {
     counter += 1;
-    const i = parseInt(this.id);
+    const i = parseInt(this.dataset.id);
     if (i === tempId) {
         openCards = 0;
         cardContainer.classList.add('box-shaker');
@@ -163,7 +157,6 @@ function cardEventListeners() {
 }
 
 cardContainer.addEventListener("webkitAnimationEnd", removeShake, false);
-
 
 // tömb összekeverése és kiosztása a kártyákra
 flagCards(shuffleArray(arr1));
